@@ -37,29 +37,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .formLogin();
 
-        // 로그아웃
+        // remember-me
         http
-                .logout()
-                .logoutUrl("/logout")
-                .logoutSuccessUrl("/login")
-                .addLogoutHandler(new LogoutHandler() {
-                    @Override
-                    public void logout(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Authentication authentication) {
-                        HttpSession session = httpServletRequest.getSession();
-
-                        session.invalidate();
-                    }
-                })
-                .logoutSuccessHandler(new LogoutSuccessHandler() {
-                    @Override
-                    public void onLogoutSuccess(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Authentication authentication) throws IOException, ServletException {
-                        httpServletResponse.sendRedirect("/login");
-                    }
-                })
-        .and()
                 .rememberMe()
-                .rememberMeParameter("remember")
-                .tokenValiditySeconds(3600)
                 .userDetailsService(userDetailsService)
         ;
     }
