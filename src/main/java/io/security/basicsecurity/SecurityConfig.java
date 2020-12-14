@@ -37,11 +37,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .formLogin();
 
-        // 동시 세션 허용
+        // 세션 고정 공격 보호 설정
         http
             .sessionManagement()
-            .maximumSessions(1)
-            .maxSessionsPreventsLogin(false)
+            .sessionFixation().changeSessionId()
         ;
     }
 }
