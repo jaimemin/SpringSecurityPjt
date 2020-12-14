@@ -37,10 +37,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .formLogin();
 
-        // remember-me
+        // 동시 세션 허용
         http
-                .rememberMe()
-                .userDetailsService(userDetailsService)
+            .sessionManagement()
+            .maximumSessions(1)
+            .maxSessionsPreventsLogin(false)
         ;
     }
 }
